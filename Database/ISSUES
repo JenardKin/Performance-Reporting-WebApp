@@ -1,0 +1,30 @@
+PROBLEMS WITH SCHEMA
+	1. (issue with primary keys mostly resolved)
+	2. DJANGO REQUIRES FORIEGN KEYS FOR MULTI-TABLE QUERIES.
+	3. THE PROVIDED PKs DO NOT ALLOW THE PROVIDED DATA TO BE ENTERED DUE TO INTEGRETY ERRORS. (Currently no PK on t_EventData as a result)
+	4. THE FORIEGN KEYS CAN NOT BE DEFINED TO MANY OF THE TABLES DUE TO BAD DATABASE DESIGN:
+		--> NOT ENOUGH MATCHING COLUMNS IN THE 'LOCAL' TABLE FOR THE COMPOSITE PKs IN THE FORIGEN TABLE.
+
+NOTE: THERE ARE NO FORIEGN KEYS IN THE CURRENT CONFIGURATION OF THE DATABASE
+NOTE: THE EVENTDATA TABLE DOES NOT HAVE PRIMARY KEYS DUE TO DATA CONFLICTS.
+
+THINGS THAT ARE MISSING AND/OR HAVE NO EXPLAINATION
+    FOR THE STORED PROCEDURES:		
+		
+	 sp_WOPRNote	
+		getDBTimeStampFromLocal(@siteID, @ts)
+			
+	sp_GetEventsCountorDowntime	
+		GetMonthPivotStringFromDates(@startTime, @endTime)
+		GetTimeStringFromYearAndMonth
+		getDBTimeStampFromLocal
+			
+	sp_GetLostProductionCrosstab	
+		GetTurbPivotStringBySiteAndGroup(@siteID, @groupID)
+		GetDBTimeStampFromLocal(@siteID, @startTime)
+
+
+PROBLEM WITH DJANGO MIGRATIONS
+	It is currently setup that the migrations will be made to the WOPR database. This should not happen.
+	The migrations should be made to an application specific database, like SQLlite.
+	So, that should be changed someday.
